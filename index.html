@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praveen — AI QA Engineer</title>
+<meta name="description" content="AI Agent QA / Evaluation Engineer. Agent eval harness, real-Odoo permission suite, bootstrap-CI merge gate for LLM evals, E2E web QA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e;
+  --accent:#58a6ff; --green:#3fb950; --red:#f85149; --amber:#d29922; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{border-bottom:1px solid var(--border);padding:64px 0 48px}
+.kicker{font-family:var(--mono);color:var(--accent);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:2.6rem;font-weight:800;line-height:1.15;margin:12px 0 16px}
+h1 .thin{color:var(--muted);font-weight:400}
+.lede{font-size:1.15rem;color:var(--muted);max-width:720px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.badge{font-family:var(--mono);font-size:.75rem;padding:4px 10px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
+.badge b{color:var(--text)}
+section{padding:48px 0;border-bottom:1px solid var(--border)}
+h2{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+h2 .n{font-family:var(--mono);color:var(--accent);font-size:1rem;margin-right:8px}
+.sub{color:var(--muted);margin-bottom:28px;max-width:720px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card .tag{font-family:var(--mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.card p{color:var(--muted);font-size:.95rem;margin:8px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:12px 0}
+th,td{text-align:left;padding:8px 12px;border:1px solid var(--border)}
+th{background:#1c2128;font-weight:600}
+td.pass{color:var(--green);font-family:var(--mono)}
+td.fail{color:var(--red);font-family:var(--mono)}
+.claim{border-left:3px solid var(--accent);padding:10px 16px;background:#1c2128;border-radius:0 8px 8px 0;font-size:.95rem;margin:14px 0}
+.claim b{color:var(--accent)}
+.links{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px}
+.stat .v{font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--mono)}
+.stat .l{font-size:.8rem;color:var(--muted)}
+footer{padding:32px 0;color:var(--muted);font-size:.85rem}
+@media print{body{background:#fff;color:#111}.card,.stat{border-color:#ccc;background:#fff}a{color:#0366d6}}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="kicker">Praveen · AI QA / Evaluation Engineer</div>
+  <h1>I build QA infrastructure <span class="thin">for AI agents.</span></h1>
+  <p class="lede">Flagship: a 60-scenario agent eval harness that verifies both the answer and the resulting database state. Plus a real-Odoo permission suite, a bootstrap-CI merge gate for LLM evals, and an E2E web QA suite — all green in CI, all with reproducible reports.</p>
+  <div class="badges">
+    <span class="badge"><b>Playwright</b></span>
+    <span class="badge"><b>Promptfoo</b></span>
+    <span class="badge"><b>Langfuse</b></span>
+    <span class="badge"><b>LLM judges</b></span>
+    <span class="badge"><b>Odoo / CRM data models</b></span>
+    <span class="badge"><b>TypeScript</b></span>
+  </div>
+</header>
+
+<section class="wrap" id="numbers">
+  <h2><span class="n">01</span>The numbers</h2>
+  <p class="sub">From the flagship eval harness, latest full run. Everything regenerates from <code style="font-family:var(--mono)">npm ci && npm run eval</code> — offline, deterministic, $0 real cost.</p>
+  <div class="grid">
+    <div class="stat"><div class="v">60</div><div class="l">evaluated scenarios</div></div>
+    <div class="stat"><div class="v">8/8</div><div class="l">smoke suite green</div></div>
+    <div class="stat"><div class="v">22</div><div class="l">red-team probes</div></div>
+    <div class="stat"><div class="v">$0.00</div><div class="l">real cost per run</div></div>
+  </div>
+</section>
+
+<section class="wrap" id="projects">
+  <h2><span class="n">02</span>Projects</h2>
+  <p class="sub">One repo per axis of the role. Every README carries a results table, findings, and a 60-second run.</p>
+
+  <div class="card">
+    <div class="tag">Flagship · Eval harness</div>
+    <h3>agent-qa-lab</h3>
+    <p>A mini-CRM with a tool-calling agent (6 tools, 6 roles, 4 documented latent bugs) attacked seven ways: 60 evaluated scenarios with deterministic + judged assertion layers, a ground-truth verifier that diffs the database field-by-field after every chat, trace-compliance audits, a 22-probe red-team suite, judge calibration with anchored rubrics, and a dedupe-first triage pipeline.</p>
+    <table>
+      <tr><th>Suite</th><th>Pass</th><th>Fail</th><th>Notes</th></tr>
+      <tr><td>smoke</td><td class="pass">8</td><td class="fail">0</td><td>baseline green</td></tr>
+      <tr><td>core</td><td class="pass">14</td><td class="fail">16</td><td>includes latent-bug surfaces</td></tr>
+      <tr><td>redteam</td><td class="pass">5</td><td class="fail">17</td><td>remaining failures are genuine findings</td></tr>
+    </table>
+    <div class="claim"><b>What it found:</b> a partial line-item write that updates deal totals while dropping the last row; a stale role cache that lets a demoted admin keep writing; an agent that invents a plausible deal for an unknown id; an outbound email with no recorded PII-guardrail span.</div>
+    <div class="links"><a href="https://github.com/pkwork98800-lab/agent-qa-lab">Repository →</a></div>
+  </div>
+
+  <div class="card">
+    <div class="tag">Written QA · Zero code</div>
+    <h3>bug-writing-portfolio</h3>
+    <p>The half of the job that is prose: four bug reports in the standard shape (title, environment, severity, repro, expected vs actual, evidence, suspected root cause), two incident postmortems with timelines and five-whys, and a duplicate-triage exercise showing 11 incoming reports collapsing into 4 unique defects.</p>
+    <div class="claim"><b>What it proves:</b> clear bug writing and clear written English — the two explicit JD requirements that code repos cannot demonstrate.</div>
+    <div class="links"><a href="https://github.com/pkwork98800-lab/bug-writing-portfolio">Repository →</a></div>
+  </div>
+
+  <div class="card">
+    <div class="tag">JD-specific · Real ERP</div>
+    <h3>real-odoo-qa <span style="color:var(--amber);font-size:.75rem">(in progress)</span></h3>
+    <p>Regression suite against a real Odoo instance over XML-RPC/JSON-RPC: data-model assertions, a 4-role permission matrix probing record-rule leaks, workflow state-machine transitions, and invoice-total vs line-item consistency — the exact "Odoo, ATS or CRM data models" nice-to-have, against a real system.</p>
+    <div class="claim"><b>Target claim:</b> "88 checks across 4 roles; found record-rule leaks and rounding inconsistencies in invoice totals."</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">Product-level · Eval infrastructure</div>
+    <h3>eval-regression-gate <span style="color:var(--amber);font-size:.75rem">(planned)</span></h3>
+    <p>An installable merge gate for LLM evals: <code style="font-family:var(--mono)">npx eval-gate compare --baseline base.json --candidate head.json --threshold 0.02</code> with bootstrap confidence intervals to distinguish real regressions from noise, flake detection, per-PR cost deltas, and a sticky PR comment verdict.</p>
+    <div class="claim"><b>Target claim:</b> "blocked 3 regression PRs in a pilot repo — with the statistical receipts."</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">Classic QA · Real public app</div>
+    <h3>web-qa-fundamentals <span style="color:var(--amber);font-size:.75rem">(planned)</span></h3>
+    <p>Full-stack E2E against a real public app: Playwright + POM, 6-role auth matrix, axe-core accessibility budget, Lighthouse thresholds, visual regression with documented false-positive handling, and API contract tests with a cross-layer check.</p>
+    <div class="claim"><b>Target claim:</b> "140 E2E specs, 6 roles, accessibility budget, visual regression — all green in CI, 4m30s."</div>
+  </div>
+</section>
+
+<section class="wrap" id="writing">
+  <h2><span class="n">03</span>How I think</h2>
+  <p class="sub">The one-pager interviewers quote back: <a href="https://github.com/pkwork98800-lab/bug-writing-portfolio/blob/main/philosophy/how-i-test-an-ai-agent.md">How I test an AI agent</a> — side-effects first, provenance always, refusals as features, and an audit trail where an unlogged step is itself the bug.</p>
+</section>
+
+<section class="wrap" id="contact">
+  <h2><span class="n">04</span>Run any of it yourself</h2>
+  <p class="sub">Every repo is reproducible without API keys:</p>
+  <div class="card" style="font-family:var(--mono);font-size:.9rem;line-height:2">
+    git clone https://github.com/pkwork98800-lab/agent-qa-lab<br>
+    cd agent-qa-lab && npm ci<br>
+    npm run verify&nbsp;&nbsp;<span style="color:var(--muted)"># lint + typecheck + tests + smoke eval + reports</span>
+  </div>
+</section>
+
+<footer class="wrap">
+  Praveen · AI Agent QA / Evaluation Engineer · <a href="https://github.com/pkwork98800-lab">github.com/pkwork98800-lab</a>
+</footer>
+
+</body>
+</html>
