@@ -1,0 +1,6 @@
+{
+  "name": "qa-portfolio-site",
+  "description": "Portfolio site: AI Agent QA Engineer — eval harness, real-Odoo suite, eval merge gate, E2E web QA. Results, findings, run instructions.",
+  "private": false,
+  "auto_init": false
+}

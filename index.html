@@ -1,147 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praveen — AI QA Engineer</title>
-<meta name="description" content="AI Agent QA / Evaluation Engineer. Agent eval harness, real-Odoo permission suite, bootstrap-CI merge gate for LLM evals, E2E web QA.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e;
-  --accent:#58a6ff; --green:#3fb950; --red:#f85149; --amber:#d29922; --mono:'JetBrains Mono',monospace;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:960px;margin:0 auto;padding:0 24px}
-header{border-bottom:1px solid var(--border);padding:64px 0 48px}
-.kicker{font-family:var(--mono);color:var(--accent);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
-h1{font-size:2.6rem;font-weight:800;line-height:1.15;margin:12px 0 16px}
-h1 .thin{color:var(--muted);font-weight:400}
-.lede{font-size:1.15rem;color:var(--muted);max-width:720px}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
-.badge{font-family:var(--mono);font-size:.75rem;padding:4px 10px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
-.badge b{color:var(--text)}
-section{padding:48px 0;border-bottom:1px solid var(--border)}
-h2{font-size:1.4rem;font-weight:800;margin-bottom:8px}
-h2 .n{font-family:var(--mono);color:var(--accent);font-size:1rem;margin-right:8px}
-.sub{color:var(--muted);margin-bottom:28px;max-width:720px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px}
-.card h3{font-size:1.1rem;margin-bottom:6px}
-.card .tag{font-family:var(--mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
-.card p{color:var(--muted);font-size:.95rem;margin:8px 0 14px}
-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:12px 0}
-th,td{text-align:left;padding:8px 12px;border:1px solid var(--border)}
-th{background:#1c2128;font-weight:600}
-td.pass{color:var(--green);font-family:var(--mono)}
-td.fail{color:var(--red);font-family:var(--mono)}
-.claim{border-left:3px solid var(--accent);padding:10px 16px;background:#1c2128;border-radius:0 8px 8px 0;font-size:.95rem;margin:14px 0}
-.claim b{color:var(--accent)}
-.links{display:flex;gap:16px;flex-wrap:wrap;font-size:.9rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px}
-.stat .v{font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--mono)}
-.stat .l{font-size:.8rem;color:var(--muted)}
-footer{padding:32px 0;color:var(--muted);font-size:.85rem}
-@media print{body{background:#fff;color:#111}.card,.stat{border-color:#ccc;background:#fff}a{color:#0366d6}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praveen — AI Agent QA / Evaluation Engineer</title>
+    <meta name="description" content="AI Agent QA / Evaluation Engineer. Agent eval harness, real-Odoo permission suite, bootstrap-CI merge gate for LLM evals, E2E web QA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader-ring"></div>
+        <div class="loading-text">Initializing Portfolio...</div>
+    </div>
 
-<header class="wrap">
-  <div class="kicker">Praveen · AI QA / Evaluation Engineer</div>
-  <h1>I build QA infrastructure <span class="thin">for AI agents.</span></h1>
-  <p class="lede">Flagship: a 60-scenario agent eval harness that verifies both the answer and the resulting database state. Plus a real-Odoo permission suite, a bootstrap-CI merge gate for LLM evals, and an E2E web QA suite — all green in CI, all with reproducible reports.</p>
-  <div class="badges">
-    <span class="badge"><b>Playwright</b></span>
-    <span class="badge"><b>Promptfoo</b></span>
-    <span class="badge"><b>Langfuse</b></span>
-    <span class="badge"><b>LLM judges</b></span>
-    <span class="badge"><b>Odoo / CRM data models</b></span>
-    <span class="badge"><b>TypeScript</b></span>
-  </div>
-</header>
+    <!-- Theme Toggle (always visible, top-right) -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
 
-<section class="wrap" id="numbers">
-  <h2><span class="n">01</span>The numbers</h2>
-  <p class="sub">From the flagship eval harness, latest full run. Everything regenerates from <code style="font-family:var(--mono)">npm ci && npm run eval</code> — offline, deterministic, $0 real cost.</p>
-  <div class="grid">
-    <div class="stat"><div class="v">60</div><div class="l">evaluated scenarios</div></div>
-    <div class="stat"><div class="v">8/8</div><div class="l">smoke suite green</div></div>
-    <div class="stat"><div class="v">22</div><div class="l">red-team probes</div></div>
-    <div class="stat"><div class="v">$0.00</div><div class="l">real cost per run</div></div>
-  </div>
-</section>
+    <!-- Ambient Background -->
+    <div class="ambient-bg" id="ambientBg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
-<section class="wrap" id="projects">
-  <h2><span class="n">02</span>Projects</h2>
-  <p class="sub">One repo per axis of the role. Every README carries a results table, findings, and a 60-second run.</p>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
 
-  <div class="card">
-    <div class="tag">Flagship · Eval harness</div>
-    <h3>agent-qa-lab</h3>
-    <p>A mini-CRM with a tool-calling agent (6 tools, 6 roles, 4 documented latent bugs) attacked seven ways: 60 evaluated scenarios with deterministic + judged assertion layers, a ground-truth verifier that diffs the database field-by-field after every chat, trace-compliance audits, a 22-probe red-team suite, judge calibration with anchored rubrics, and a dedupe-first triage pipeline.</p>
-    <table>
-      <tr><th>Suite</th><th>Pass</th><th>Fail</th><th>Notes</th></tr>
-      <tr><td>smoke</td><td class="pass">8</td><td class="fail">0</td><td>baseline green</td></tr>
-      <tr><td>core</td><td class="pass">14</td><td class="fail">16</td><td>includes latent-bug surfaces</td></tr>
-      <tr><td>redteam</td><td class="pass">5</td><td class="fail">17</td><td>remaining failures are genuine findings</td></tr>
-    </table>
-    <div class="claim"><b>What it found:</b> a partial line-item write that updates deal totals while dropping the last row; a stale role cache that lets a demoted admin keep writing; an agent that invents a plausible deal for an unknown id; an outbound email with no recorded PII-guardrail span.</div>
-    <div class="links"><a href="https://github.com/pkwork98800-lab/agent-qa-lab">Repository →</a></div>
-  </div>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header" id="mainHeader">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:var(--primary)"/>
+                            <stop offset="100%" style="stop-color:var(--secondary)"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
+                    <polygon points="50,20 80,37 80,63 50,80 20,63 20,37" fill="none" stroke="url(#logoGradient)" stroke-width="1.5" opacity="0.6"/>
+                    <circle cx="50" cy="50" r="12" fill="url(#logoGradient)" opacity="0.3"/>
+                    <circle cx="50" cy="50" r="6" fill="url(#logoGradient)"/>
+                </svg>
+            </div>
+            <h1 class="brand-name">Praveen</h1>
+            <p class="tagline">AI Agent QA / Evaluation Engineer</p>
+        </header>
 
-  <div class="card">
-    <div class="tag">Written QA · Zero code</div>
-    <h3>bug-writing-portfolio</h3>
-    <p>The half of the job that is prose: four bug reports in the standard shape (title, environment, severity, repro, expected vs actual, evidence, suspected root cause), two incident postmortems with timelines and five-whys, and a duplicate-triage exercise showing 11 incoming reports collapsing into 4 unique defects.</p>
-    <div class="claim"><b>What it proves:</b> clear bug writing and clear written English — the two explicit JD requirements that code repos cannot demonstrate.</div>
-    <div class="links"><a href="https://github.com/pkwork98800-lab/bug-writing-portfolio">Repository →</a></div>
-  </div>
+        <!-- Menu Grid -->
+        <div class="menu-grid" id="menuGrid">
+            <div class="menu-item initial-load" data-section="introduction">
+                <div class="menu-badge">IN</div>
+                <div class="menu-title">Introduction</div>
+            </div>
+            <div class="menu-item initial-load" data-section="projects">
+                <div class="menu-badge">PJ</div>
+                <div class="menu-title">Projects</div>
+            </div>
+            <div class="menu-item initial-load" data-section="findings">
+                <div class="menu-badge">FD</div>
+                <div class="menu-title">Findings</div>
+            </div>
+            <div class="menu-item initial-load" data-section="writing">
+                <div class="menu-badge">WR</div>
+                <div class="menu-title">Writing</div>
+            </div>
+            <div class="menu-item initial-load" data-section="about">
+                <div class="menu-badge">AB</div>
+                <div class="menu-title">About</div>
+            </div>
+            <div class="menu-item initial-load" data-section="contact">
+                <div class="menu-badge">CT</div>
+                <div class="menu-title">Contact</div>
+            </div>
+        </div>
 
-  <div class="card">
-    <div class="tag">JD-specific · Real ERP</div>
-    <h3>real-odoo-qa <span style="color:var(--amber);font-size:.75rem">(in progress)</span></h3>
-    <p>Regression suite against a real Odoo instance over XML-RPC/JSON-RPC: data-model assertions, a 4-role permission matrix probing record-rule leaks, workflow state-machine transitions, and invoice-total vs line-item consistency — the exact "Odoo, ATS or CRM data models" nice-to-have, against a real system.</p>
-    <div class="claim"><b>Target claim:</b> "88 checks across 4 roles; found record-rule leaks and rounding inconsistencies in invoice totals."</div>
-  </div>
+        <!-- Content Sections -->
+        <div id="contentArea">
+            <!-- Introduction Section -->
+            <div class="content-section" id="introduction">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
 
-  <div class="card">
-    <div class="tag">Product-level · Eval infrastructure</div>
-    <h3>eval-regression-gate <span style="color:var(--amber);font-size:.75rem">(planned)</span></h3>
-    <p>An installable merge gate for LLM evals: <code style="font-family:var(--mono)">npx eval-gate compare --baseline base.json --candidate head.json --threshold 0.02</code> with bootstrap confidence intervals to distinguish real regressions from noise, flake detection, per-PR cost deltas, and a sticky PR comment verdict.</p>
-    <div class="claim"><b>Target claim:</b> "blocked 3 regression PRs in a pilot repo — with the statistical receipts."</div>
-  </div>
+                <!-- Hero Banner -->
+                <div class="intro-hero">
+                    <div class="intro-hero-content">
+                        <span class="intro-badge">Available for Hire</span>
+                        <h1 class="intro-headline">I Build QA Infrastructure <br><span>for AI Agents</span></h1>
+                        <p class="intro-subtext">Flagship: a 60-scenario agent eval harness that verifies both the answer and the resulting database state. Plus a real-Odoo permission suite, a bootstrap-CI merge gate for LLM evals, and an E2E web QA suite — all green in CI, all with reproducible reports.</p>
+                        <div class="intro-cta-group">
+                            <button class="intro-cta-primary" onclick="showSection('projects')">Explore Projects</button>
+                            <button class="intro-cta-secondary" onclick="showSection('writing')">Read My Philosophy</button>
+                        </div>
+                    </div>
+                    <div class="intro-hero-visual">
+                        <div class="intro-floating-card card-1">
+                            <span class="card-icon">⚡</span>
+                            <span class="card-text">Deterministic Evals</span>
+                        </div>
+                        <div class="intro-floating-card card-2">
+                            <span class="card-icon">🎯</span>
+                            <span class="card-text">Ground-Truth Verified</span>
+                        </div>
+                        <div class="intro-floating-card card-3">
+                            <span class="card-icon">🔒</span>
+                            <span class="card-text">$0 Real Cost</span>
+                        </div>
+                        <div class="intro-orb"></div>
+                    </div>
+                </div>
 
-  <div class="card">
-    <div class="tag">Classic QA · Real public app</div>
-    <h3>web-qa-fundamentals <span style="color:var(--amber);font-size:.75rem">(planned)</span></h3>
-    <p>Full-stack E2E against a real public app: Playwright + POM, 6-role auth matrix, axe-core accessibility budget, Lighthouse thresholds, visual regression with documented false-positive handling, and API contract tests with a cross-layer check.</p>
-    <div class="claim"><b>Target claim:</b> "140 E2E specs, 6 roles, accessibility budget, visual regression — all green in CI, 4m30s."</div>
-  </div>
-</section>
+                <!-- Metrics Strip -->
+                <div class="intro-metrics">
+                    <div class="metric-item">
+                        <span class="metric-value" data-target="60">0</span>
+                        <span class="metric-label">Evaluated Scenarios</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-value" data-target="8">0</span>
+                        <span class="metric-suffix">/8</span>
+                        <span class="metric-label">Smoke Suite Green</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-value" data-target="22">0</span>
+                        <span class="metric-label">Red-Team Probes</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-value">$0</span>
+                        <span class="metric-label">Real Cost Per Run</span>
+                    </div>
+                </div>
 
-<section class="wrap" id="writing">
-  <h2><span class="n">03</span>How I think</h2>
-  <p class="sub">The one-pager interviewers quote back: <a href="https://github.com/pkwork98800-lab/bug-writing-portfolio/blob/main/philosophy/how-i-test-an-ai-agent.md">How I test an AI agent</a> — side-effects first, provenance always, refusals as features, and an audit trail where an unlogged step is itself the bug.</p>
-</section>
+                <!-- Core Values / Testing Philosophy -->
+                <div class="intro-values">
+                    <div class="value-card">
+                        <div class="value-number">01</div>
+                        <h3>Side-Effects First</h3>
+                        <p>Assert the resulting database state, not just the LLM's answer. An unlogged tool call is itself the bug.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-number">02</div>
+                        <h3>Provenance Always</h3>
+                        <p>Every claim traces to a ground-truth verifier. If the agent says "deal created," the verifier diffs the DB.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-number">03</div>
+                        <h3>Refusals as Features</h3>
+                        <p>The agent saying "I can't do that" is a testable behavior. Red-team probes verify guardrails hold.</p>
+                    </div>
+                </div>
 
-<section class="wrap" id="contact">
-  <h2><span class="n">04</span>Run any of it yourself</h2>
-  <p class="sub">Every repo is reproducible without API keys:</p>
-  <div class="card" style="font-family:var(--mono);font-size:.9rem;line-height:2">
-    git clone https://github.com/pkwork98800-lab/agent-qa-lab<br>
-    cd agent-qa-lab && npm ci<br>
-    npm run verify&nbsp;&nbsp;<span style="color:var(--muted)"># lint + typecheck + tests + smoke eval + reports</span>
-  </div>
-</section>
+                <!-- Tech Stack Preview -->
+                <div class="intro-tech">
+                    <p class="tech-label">Technologies I Master</p>
+                    <div class="tech-marquee">
+                        <div class="tech-track">
+                            <span class="tech-item">Playwright</span>
+                            <span class="tech-item">Promptfoo</span>
+                            <span class="tech-item">Langfuse</span>
+                            <span class="tech-item">LLM Judges</span>
+                            <span class="tech-item">Odoo XML-RPC</span>
+                            <span class="tech-item">TypeScript</span>
+                            <span class="tech-item">Node.js</span>
+                            <span class="tech-item">Bootstrap CI</span>
+                            <span class="tech-item">Playwright</span>
+                            <span class="tech-item">Promptfoo</span>
+                            <span class="tech-item">Langfuse</span>
+                            <span class="tech-item">LLM Judges</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<footer class="wrap">
-  Praveen · AI Agent QA / Evaluation Engineer · <a href="https://github.com/pkwork98800-lab">github.com/pkwork98800-lab</a>
-</footer>
+            <!-- Projects Section -->
+            <div class="content-section" id="projects">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad2)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad2)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
 
+                <div class="section-header">
+                    <h2 class="section-title">Projects</h2>
+                    <p class="section-subtitle">One repo per axis of the role. Every README carries a results table, findings, and a 60-second run.</p>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="switchTab(this, 'flagship')">Flagship</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'written')">Written QA</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'jd')">JD-Specific</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'product')">Product-Level</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'classic')">Classic QA</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- Flagship Tab -->
+                        <div class="tab-pane active" id="flagship">
+                            <div class="services-list">
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">🧪</span>
+                                            <span class="placeholder-text">agent-qa-lab</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>agent-qa-lab — Eval Harness</h4>
+                                        <p>A mini-CRM with a tool-calling agent (6 tools, 6 roles, 4 documented latent bugs) attacked seven ways: 60 evaluated scenarios with deterministic + judged assertion layers, a ground-truth verifier that diffs the database field-by-field after every chat, trace-compliance audits, a 22-probe red-team suite, judge calibration with anchored rubrics, and a dedupe-first triage pipeline.</p>
+                                    </div>
+                                </div>
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">📊</span>
+                                            <span class="placeholder-text">Results Table</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>Latest Run — Full Results</h4>
+                                        <table class="results-table">
+                                            <tr><th>Suite</th><th>Pass</th><th>Fail</th><th>Notes</th></tr>
+                                            <tr><td>smoke</td><td class="pass">8</td><td class="fail">0</td><td>baseline green</td></tr>
+                                            <tr><td>core</td><td class="pass">14</td><td class="fail">16</td><td>includes latent-bug surfaces</td></tr>
+                                            <tr><td>redteam</td><td class="pass">5</td><td class="fail">17</td><td>remaining failures are genuine findings</td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="claim"><b>What it found:</b> A partial line-item write that updates deal totals while dropping the last row; a stale role cache that lets a demoted admin keep writing; an agent that invents a plausible deal for an unknown ID; an outbound email with no recorded PII-guardrail span.</div>
+                            <div class="links"><a href="https://github.com/pkwork98800-lab/agent-qa-lab" target="_blank">Repository →</a></div>
+                        </div>
+
+                        <!-- Written QA Tab -->
+                        <div class="tab-pane" id="written">
+                            <div class="services-list">
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">📝</span>
+                                            <span class="placeholder-text">bug-writing-portfolio</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>bug-writing-portfolio — Zero Code</h4>
+                                        <p>The half of the job that is prose: four bug reports in the standard shape (title, environment, severity, repro, expected vs actual, evidence, suspected root cause), two incident postmortems with timelines and five-whys, and a duplicate-triage exercise showing 11 incoming reports collapsing into 4 unique defects.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="claim"><b>What it proves:</b> Clear bug writing and clear written English — the two explicit JD requirements that code repos cannot demonstrate.</div>
+                            <div class="links"><a href="https://github.com/pkwork98800-lab/bug-writing-portfolio" target="_blank">Repository →</a></div>
+                        </div>
+
+                        <!-- JD-Specific Tab -->
+                        <div class="tab-pane" id="jd">
+                            <div class="services-list">
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">🏢</span>
+                                            <span class="placeholder-text">real-odoo-qa</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>real-odoo-qa — Real ERP Regression</h4>
+                                        <p>Regression suite against a real Odoo instance over XML-RPC/JSON-RPC: data-model assertions, a 4-role permission matrix probing record-rule leaks, workflow state-machine transitions, and invoice-total vs line-item consistency — the exact "Odoo, ATS or CRM data models" nice-to-have, against a real system.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="claim"><b>Target claim:</b> "88 checks across 4 roles; found record-rule leaks and rounding inconsistencies in invoice totals." <span style="color:var(--amber)">(in progress)</span></div>
+                        </div>
+
+                        <!-- Product-Level Tab -->
+                        <div class="tab-pane" id="product">
+                            <div class="services-list">
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">🚀</span>
+                                            <span class="placeholder-text">eval-regression-gate</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>eval-regression-gate — Merge Gate for LLM Evals</h4>
+                                        <p>An installable merge gate for LLM evals: <code>npx eval-gate compare --baseline base.json --candidate head.json --threshold 0.02</code> with bootstrap confidence intervals to distinguish real regressions from noise, flake detection, per-PR cost deltas, and a sticky PR comment verdict.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="claim"><b>Target claim:</b> "Blocked 3 regression PRs in a pilot repo — with the statistical receipts." <span style="color:var(--amber)">(planned)</span></div>
+                        </div>
+
+                        <!-- Classic QA Tab -->
+                        <div class="tab-pane" id="classic">
+                            <div class="services-list">
+                                <div class="service-row">
+                                    <div class="service-row-icon">
+                                        <div class="service-placeholder">
+                                            <span class="placeholder-icon">🌐</span>
+                                            <span class="placeholder-text">web-qa-fundamentals</span>
+                                        </div>
+                                    </div>
+                                    <div class="service-row-content">
+                                        <h4>web-qa-fundamentals — Full-Stack E2E</h4>
+                                        <p>Full-stack E2E against a real public app: Playwright + POM, 6-role auth matrix, axe-core accessibility budget, Lighthouse thresholds, visual regression with documented false-positive handling, and API contract tests with a cross-layer check.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="claim"><b>Target claim:</b> "140 E2E specs, 6 roles, accessibility budget, visual regression — all green in CI, 4m30s." <span style="color:var(--amber)">(planned)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Findings Section (Gallery-style) -->
+            <div class="content-section" id="findings">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad3)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad3)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
+
+                <div class="section-header">
+                    <h2 class="section-title">Key Findings</h2>
+                    <p class="section-subtitle">Real bugs surfaced by the evaluation infrastructure</p>
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterGallery('logic', this)">Logic Bugs</button>
+                    <button class="filter-btn" onclick="filterGallery('security', this)">Security</button>
+                    <button class="filter-btn" onclick="filterGallery('observability', this)">Observability</button>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-category="logic">
+                        <div class="gallery-image logic-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Stale Role Cache</h4>
+                            <p>Logic Bug · agent-qa-lab</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="logic">
+                        <div class="gallery-image partial-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Partial Line-Item Write</h4>
+                            <p>Logic Bug · agent-qa-lab</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="logic">
+                        <div class="gallery-image hallucination-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Hallucinated Fallback</h4>
+                            <p>Logic Bug · agent-qa-lab</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="security">
+                        <div class="gallery-image pii-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Unlogged PII Guardrail</h4>
+                            <p>Security Gap · agent-qa-lab</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="observability">
+                        <div class="gallery-image unlogged-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Missing Tool Span</h4>
+                            <p>Observability · agent-qa-lab</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="logic">
+                        <div class="gallery-image record-bg"></div>
+                        <div class="gallery-overlay">
+                            <h4>Record-Rule Leak</h4>
+                            <p>Permission Bug · real-odoo-qa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Section (Testimonials-style) -->
+            <div class="content-section" id="writing">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad4)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad4)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
+
+                <div class="section-header">
+                    <h2 class="section-title">How I Think</h2>
+                    <p class="section-subtitle">The writing that demonstrates the craft</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Side-effects first, provenance always, refusals as features, and an audit trail where an unlogged step is itself the bug."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <div class="avatar-placeholder">📄</div>
+                            </div>
+                            <div class="author-info">
+                                <h5>How I Test an AI Agent</h5>
+                                <p>Testing Philosophy · 4,200 words</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"A bug report is not a complaint — it is a reproducible artifact. Title, environment, severity, repro steps, expected vs actual, evidence, suspected root cause. Nothing more, nothing less."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <div class="avatar-placeholder">🐛</div>
+                            </div>
+                            <div class="author-info">
+                                <h5>Bug Reports (4)</h5>
+                                <p>Standardized format with full evidence chains</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Incident postmortems with timelines, five-whys, and actionable remediation. The goal is not blame — it is preventing recurrence."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <div class="avatar-placeholder">📋</div>
+                            </div>
+                            <div class="author-info">
+                                <h5>Postmortems (2)</h5>
+                                <p>Full incident anatomy with RCA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"11 incoming reports collapsed into 4 unique defects. Deduplication is a skill — it requires reading past the surface to the shared root cause."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <div class="avatar-placeholder">🔍</div>
+                            </div>
+                            <div class="author-info">
+                                <h5>Triage Exercise</h5>
+                                <p>Duplicate detection & clustering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="links" style="margin-top: 40px; text-align: center;">
+                    <a href="https://github.com/pkwork98800-lab/bug-writing-portfolio/blob/main/philosophy/how-i-test-an-ai-agent.md" target="_blank" class="intro-cta-primary">Read Full Philosophy →</a>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="content-section" id="about">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad5)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad5)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
+
+                <div class="section-header">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="section-subtitle">QA engineer focused on AI agent reliability</p>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Building Trust in AI Systems</h3>
+                        <p>I specialize in QA infrastructure for AI agents — the evaluation harnesses, regression gates, and observability pipelines that make non-deterministic systems auditable and trustworthy.</p>
+                        <p>My flagship project, <strong>agent-qa-lab</strong>, demonstrates a complete evaluation pipeline: a mini-CRM with a tool-calling agent, 60 scenarios spanning deterministic assertions, LLM-as-judge layers, ground-truth database verification, red-team probes, and judge calibration — all running offline at $0 real cost.</p>
+                        <p>I also maintain <strong>bug-writing-portfolio</strong> (the written half of QA: 4 bug reports, 2 postmortems, triage exercise) and <strong>real-odoo-qa</strong> (XML-RPC regression suite against a real Odoo instance — the exact JD nice-to-have).</p>
+                        <p>Currently building: <strong>eval-regression-gate</strong> (statistical merge gate for LLM evals) and <strong>web-qa-fundamentals</strong> (full-stack E2E with accessibility budget and visual regression).</p>
+                    </div>
+                    <div class="about-image">
+                        <div class="about-placeholder">
+                            <svg viewBox="0 0 200 200" width="160" height="160">
+                                <defs>
+                                    <linearGradient id="aboutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:var(--primary)"/>
+                                        <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                    </linearGradient>
+                                </defs>
+                                <polygon points="100,10 170,55 170,145 100,190 30,145 30,55" fill="none" stroke="url(#aboutGrad)" stroke-width="3"/>
+                                <circle cx="100" cy="100" r="40" fill="url(#aboutGrad)" opacity="0.2"/>
+                                <circle cx="100" cy="100" r="20" fill="url(#aboutGrad)"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="content-section" id="contact">
+                <div class="section-header-small">
+                    <div class="small-logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="smallLogoGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--primary)"/>
+                                    <stop offset="100%" style="stop-color:var(--secondary)"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,10 85,32 85,68 50,90 15,68 15,32" fill="none" stroke="url(#smallLogoGrad6)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#smallLogoGrad6)"/>
+                        </svg>
+                    </div>
+                    <div class="small-brand">
+                        <h3>PRAVEEN</h3>
+                        <p>AI Agent QA Engineer</p>
+                    </div>
+                </div>
+                <button class="back-btn" onclick="backToMenu()">← Back to Menu</button>
+
+                <div class="section-header">
+                    <h2 class="section-title">Run It Yourself</h2>
+                    <p class="section-subtitle">Every repo is reproducible without API keys</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <div class="form-group">
+                            <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; background: var(--glass-bg); padding: 20px; border-radius: 12px; display: block; border: 1px solid var(--glass-border);">
+git clone https://github.com/pkwork98800-lab/agent-qa-lab<br>
+cd agent-qa-lab && npm ci<br>
+npm run verify&nbsp;&nbsp;<span style="color:var(--muted)"># lint + typecheck + tests + smoke eval + reports</span>
+                            </code>
+                        </div>
+                        <div class="form-group" style="margin-top: 30px;">
+                            <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; background: var(--glass-bg); padding: 20px; border-radius: 12px; display: block; border: 1px solid var(--glass-border);">
+git clone https://github.com/pkwork98800-lab/bug-writing-portfolio<br>
+cd bug-writing-portfolio && cat philosophy/how-i-test-an-ai-agent.md
+                            </code>
+                        </div>
+                        <div class="form-group" style="margin-top: 30px;">
+                            <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; background: var(--glass-bg); padding: 20px; border-radius: 12px; display: block; border: 1px solid var(--glass-border);">
+git clone https://github.com/pkwork98800-lab/real-odoo-qa<br>
+cd real-odoo-qa && npm ci<br>
+# Set ODOO_* env vars, then:<br>
+npm run suite
+                            </code>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Location</h4>
+                                <p>Remote · Open to relocation</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>Available on GitHub profile</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🔗</div>
+                            <div class="contact-details">
+                                <h4>GitHub</h4>
+                                <p><a href="https://github.com/pkwork98800-lab" target="_blank" style="color: var(--primary);">github.com/pkwork98800-lab</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📄</div>
+                            <div class="contact-details">
+                                <h4>Portfolio</h4>
+                                <p><a href="https://pkwork98800-lab.github.io/qa-portfolio-site/" target="_blank" style="color: var(--primary);">Live Site →</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer" id="mainFooter">
+            <p>© 2026 Praveen · AI Agent QA / Evaluation Engineer · <a href="https://github.com/pkwork98800-lab" target="_blank">github.com/pkwork98800-lab</a></p>
+        </footer>
+    </div>
+<script src="script.js"></script>
 </body>
 </html>
